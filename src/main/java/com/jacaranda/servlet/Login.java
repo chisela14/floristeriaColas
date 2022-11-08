@@ -7,6 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
+import com.jacaranda.ddbb.ControlException;
+import com.jacaranda.ddbb.UserControl;
+import com.jacaranda.model.User;
+
 /**
  * Servlet implementation class Login
  */
@@ -34,8 +40,13 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String passwordEncript = DigestUtils.md5Hex(password);
+		if(UserControl.checkUser(username, passwordEncript)) {
+			
+		}
+		
 	}
 
 }
