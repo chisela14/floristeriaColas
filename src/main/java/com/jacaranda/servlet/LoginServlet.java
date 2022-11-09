@@ -31,6 +31,13 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String passwordEncript = DigestUtils.md5Hex(password);
@@ -39,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 					+ "<html>\n"
 					+ "<head>\n"
 					+ "    <meta charset='utf-8'>\n"
-					+ "    <title>Page Title</title>\n"
+					+ "    <title>Catálogo</title>\n"
 					+ "    <link rel='stylesheet' type='text/css' href='css/style.css'>\n"
 					+ "</head>\n"
 					+ "<body>\n"
@@ -51,23 +58,19 @@ public class LoginServlet extends HttpServlet {
 			response.getWriter().append("<!DOCTYPE html>\n"
 					+ "<html>\n"
 					+ "<head>\n"
-					+ "    <meta charset='utf-8'>\n"
-					+ "    <title>Page Title</title>\n"
-					+ "    <link rel='stylesheet' type='text/css' href='css/style.css'>\n"
+					+ "	<title>FC - Error</title>\n"
+					+ "	<link type=\"text/css\" rel=\"stylesheet\" href=\"css/error.css\" />\n"
 					+ "</head>\n"
 					+ "<body>\n"
-					+ "    Error\n"
-					+ "    \n"
+					+ "    <div>\n"
+					+ "        <h1>Error</h1>\n"
+					+ "        <h2>El usuario o la contraseña no son correctos</h2>\n"
+					+ "        <a href='login.html'>volver</a>\n"
+					+ "    </div>\n"
+					+ "</div>\n"
 					+ "</body>\n"
 					+ "</html>");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		
 	}
 

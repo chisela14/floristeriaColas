@@ -5,6 +5,22 @@ import org.hibernate.Session;
 
 public class UserControl {
 	
+	public static boolean addUser(User u) throws ControlException {
+		boolean result = false;
+		Session session = ConnectionDDBB.getSession();
+		try {
+			session.getTransaction().begin();
+			session.save(u);
+			session.getTransaction().commit();
+			result = true;
+		}catch (Exception e) {
+			session.getTransaction().rollback();
+			throw new ControlException("Ese usuario ya existe en la base da datos, elige otro nombre de usuario");
+		}
+		
+		return result;
+	}
+	
 	public static User getUser(String username) throws ControlException {
 		Session session = ConnectionDDBB.getSession();
 		User result = (User)session.get(User.class, username);

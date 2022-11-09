@@ -27,14 +27,14 @@ public class User {
 	}
 
 	public User(String username, String password, String firstName, String lastName, LocalDate dateOfBirth,
-			String genre, boolean admin) {
+			String genre) throws UserException {
 		this.username = username;
-		this.password = password;
+		this.password = password; //TO DO comprobar que la contraseña esté cifrada, si no lo está cifrarla
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dateOfBirth = dateOfBirth;
-		this.genre = genre;
-		this.admin = admin;
+		this.setGenre(genre);
+		this.admin = false;
 	}
 
 	public String getUsername() {
@@ -81,8 +81,12 @@ public class User {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
-		this.genre = genre;
+	public void setGenre(String genre) throws UserException {
+		if(genre.equals("Male") || genre.equals("Female")) {
+			this.genre = genre;
+		}else {
+			throw new UserException("El género no es correcto");
+		}
 	}
 
 	public boolean isAdmin() {

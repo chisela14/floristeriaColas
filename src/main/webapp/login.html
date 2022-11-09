@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Floristería Colás</title>
+<title>FC - Iniciar sesión</title>
 <link rel='stylesheet' type='text/css'  href='css/style.css'>
 </head>
 <body>
@@ -13,7 +13,7 @@
 	<div class="image">
 	<img src="media/flores.jpg">
 	</div>
-	<form action="LoginServlet">
+	<form action="LoginServlet" method="post">
 		<div class="formTitle">
 	   		<p>Iniciar sesión</p>
 	   	</div>
@@ -26,7 +26,8 @@
           	<input type="password" class="form-input" placeholder="Password" name="password" required>
         </div>
         <div class="button">
-        	<button type="submit">Sign In</button>
+        	<button type="submit">Enviar</button><br>
+        	<p><a href="signup.html">También puedes crear una cuenta nueva pulsando aquí</a></p>
         </div>
      </form>
 </div>
