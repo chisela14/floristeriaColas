@@ -5,12 +5,13 @@
  <session-factory name="">
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver/property></property>
   <property name="hibernate.connection.password">chisela</property>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost:8090/floresColas?useSSL=false</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/floresColas?useSSL=false</property>
   <property name="hibernate.connection.username">colas</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.format_sql">true</property>
   <mapping class="com.jacaranda.model.Color"/>
   <mapping class="com.jacaranda.model.Flower"/>
+  <mapping class="com.jacaranda.model.User"/>
  </session-factory>
 </hibernate-configuration>

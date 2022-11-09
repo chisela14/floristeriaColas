@@ -150,21 +150,21 @@ create table floresColas.USERS (
 ); 
 
 -- INSERT USERS TABLE 
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('ioliasa', '45b07bc69679ee05afc0abd0110306ac', 'Inma', 'Olias', '8/31/1993', 'Female', true);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('fmessiter2e', '45b07bc69679ee05afc0abd0110306ac', 'Flossy', 'Messiter', '8/31/1993', 'Female', true);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('swilstead2f', 'cdb8f62470d0a0be8d0737507d77cec9', 'Suzie', 'Wilstead', '6/25/1989', 'Female', false);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('gsivyer8', 'cbb564b47c3b482ef687f09ad5dc74bd', 'Heddie', 'Ferreli', '4/14/2008', 'Female', false);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('gkellen2h', '8987658b6dd286e865333200f9cab268', 'Giulio', 'Kellen', '8/27/1981', 'Male', false);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('mkinver2i', '15e2700b4118cad34b0537a7589c84e4', 'Mildrid', 'Kinver', '10/22/2005', 'Female', true);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('ethulborn2q', 'c0ea4f4e34a99fb51cd17dc1becafd50', 'Allayne', 'Steptow', '9/14/1981', 'Male', false);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('dbannon2k', 'b47f6ceb37c6007cf034b96320945230', 'Damita', 'Bannon', '1/18/1966', 'Female', true);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('wfransewich2l', '5d9ba4db3cc16639d7c85d0576530679', 'Wilhelmine', 'Fransewich', '6/11/2001', 'Female', false);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('vcowitz2m', '50fba89e919036b36228450c81efe52d', 'Viv', 'Cowitz', '8/17/1945', 'Female', true);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('wtreanor2d', '67183446d01aea3a829ebf9c973e5af1', 'Felike', 'Earle', '6/13/1974', 'Male', false);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('dblanshard2l', '339360b3021a1440e6a30198d22d3aae', 'Chev', 'Cisson', '9/7/1927', 'Male', false);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('vpurkiss1b', '9c55e718b1f207181f13d0c041f86dc9', 'Daphne', 'Oleszczak', '8/17/1922', 'Female', true);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('ibrogioniz', '778026fd258727f8dd523be1e837dbfa', 'Gabriello', 'Egell', '12/17/2003', 'Male', true);
-insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('aconnor29', '808d9e40f25a093cc596a371a6d9f2ac', 'Gregorio', 'Weiner', '10/30/1944', 'Male', true);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('ioliasa', md5('ioliasa'), 'Inma', 'Olias', '1993-08-31', 'Female', true); -- 1 admin 0 no admin se guardará
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('fmessiter2e', '45b07bc69679ee05afc0abd0110306ac', 'Flossy', 'Messiter', '1993-08-31', 'Female', true);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('swilstead2f', 'cdb8f62470d0a0be8d0737507d77cec9', 'Suzie', 'Wilstead', '1989-06-25', 'Female', false);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('gsivyer8', 'cbb564b47c3b482ef687f09ad5dc74bd', 'Heddie', 'Ferreli', '2008-04-14', 'Female', false);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('gkellen2h', '8987658b6dd286e865333200f9cab268', 'Giulio', 'Kellen', '1981-08-27', 'Male', false);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('mkinver2i', '15e2700b4118cad34b0537a7589c84e4', 'Mildrid', 'Kinver', '2005-10-22', 'Female', true);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('ethulborn2q', 'c0ea4f4e34a99fb51cd17dc1becafd50', 'Allayne', 'Steptow', '981-09-24', 'Male', false);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('dbannon2k', 'b47f6ceb37c6007cf034b96320945230', 'Damita', 'Bannon', '1966-01-18', 'Female', true);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('wfransewich2l', '5d9ba4db3cc16639d7c85d0576530679', 'Wilhelmine', 'Fransewich', '2001-06-11', 'Female', false);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('vcowitz2m', '50fba89e919036b36228450c81efe52d', 'Viv', 'Cowitz', '1945-08-17', 'Female', true);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('wtreanor2d', '67183446d01aea3a829ebf9c973e5af1', 'Felike', 'Earle', '1974-06-13', 'Male', false);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('dblanshard2l', '339360b3021a1440e6a30198d22d3aae', 'Chev', 'Cisson', '1927-09-07', 'Male', false);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('vpurkiss1b', '9c55e718b1f207181f13d0c041f86dc9', 'Daphne', 'Oleszczak', '1922-08-17', 'Female', true);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('ibrogioniz', '778026fd258727f8dd523be1e837dbfa', 'Gabriello', 'Egell', '2003-12-17', 'Male', true);
+insert into floresColas.USERS (username, password, first_name, last_name, date_of_birth, genre, admin) values ('aconnor29', '808d9e40f25a093cc596a371a6d9f2ac', 'Gregorio', 'Weiner', '1944-10-30', 'Male', true);
 
 create table floresColas.PURCHASE (
 	username VARCHAR(50),
