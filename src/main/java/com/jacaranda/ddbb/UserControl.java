@@ -1,19 +1,16 @@
 package com.jacaranda.ddbb;
 
 import com.jacaranda.model.User;
-
-import javax.persistence.Query;
-
 import org.hibernate.Session;
 
 public class UserControl {
 	
 	public static User getUser(String username) throws ControlException {
 		Session session = ConnectionDDBB.getSession();
-		// User result = (User)session.get(User.class, username);
-		Query query = session.createQuery("FROM com.jacaranda.model.User WHERE username= :username"); //mirar sintaxis
-		query.setParameter("username", username);
-		User result = (User) query.getSingleResult();
+		User result = (User)session.get(User.class, username);
+//		Query query = session.createQuery("FROM com.jacaranda.model.User WHERE username= :username"); //mirar sintaxis
+//		query.setParameter("username", username);
+//		User result = (User) query.getSingleResult();
 		if(result == null) {
 			throw new ControlException("No se ha encontrado el usuario en la base de datos");
 		}
