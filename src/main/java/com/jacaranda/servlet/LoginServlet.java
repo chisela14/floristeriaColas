@@ -1,6 +1,8 @@
 package com.jacaranda.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import com.jacaranda.ddbb.FlowerControl;
 import com.jacaranda.ddbb.UserControl;
+import com.jacaranda.model.Flower;
 
 
 /**
@@ -42,6 +46,7 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String passwordEncript = DigestUtils.md5Hex(password);
 		if(UserControl.checkUser(username, passwordEncript)) {
+			ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
 			response.getWriter().append("<!DOCTYPE html>\n"
 					+ "<html>\n"
 					+ "<head>\n"
@@ -50,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 					+ "    <link rel='stylesheet' type='text/css' href='css/style.css'>\n"
 					+ "</head>\n"
 					+ "<body>\n"
-					+ "    Hola "+ username + "\n"
+					+ "    Hola "+ username + "\n" + showFlowers(flowerList) 
 					+ "    \n"
 					+ "</body>\n"
 					+ "</html>");
@@ -72,6 +77,14 @@ public class LoginServlet extends HttpServlet {
 					+ "</html>");
 		}
 		
+	}
+	
+	private String showFlowers(ArrayList<Flower> flowers) {
+		StringBuilder result = new StringBuilder("Artículos: \n");
+		for(Flower f: flowers) {
+			result.append(f.toString() + "\n");
+		}
+		return result.toString();
 	}
 
 }

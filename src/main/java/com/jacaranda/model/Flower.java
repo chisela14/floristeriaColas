@@ -2,11 +2,18 @@ package com.jacaranda.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Flower {
+	@Id
 	private int code;
 	private String name;
 	private String description;
 	private float price;
+	@ManyToOne //TO DO arreglar mapeo
 	private Color color;
 	
 	public Flower(int code, String name, String description, float price, Color color) {
@@ -72,8 +79,7 @@ public class Flower {
 
 	@Override
 	public String toString() {
-		return "Flower [code=" + code + ", name=" + name + ", description=" + description + ", price=" + price
-				+ ", color=" + color + "]";
+		return name + " " + code + "\n Descripción: " + description + "\n Color: " + color + "\n Precio: " + price;
 	}
 
 	

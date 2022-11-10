@@ -1,14 +1,22 @@
 package com.jacaranda.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Color {
-	
+	@Id
 	private String code;
 	private String name;
 	private String description;
-	private ArrayList<Flower> flowerList;
+	@OneToMany(mappedBy ="color", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Flower> flowerList;
 	
 	public Color(String code, String name, String description) {
 		this.code = code;
@@ -32,7 +40,7 @@ public class Color {
 		this.description = description;
 	}
 
-	public ArrayList<Flower> getFlowerList() {
+	public List<Flower> getFlowerList() {
 		return flowerList;
 	}
 
