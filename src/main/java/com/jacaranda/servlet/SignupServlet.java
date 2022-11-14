@@ -33,14 +33,6 @@ public class SignupServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -66,7 +58,7 @@ public class SignupServlet extends HttpServlet {
 						+ "    <div>\n"
 						+ "        <h2>Usuario creado correctamente</h2>\n"
 						+ "        <p>Inicie sesión con el nuevo usuario</p>\n"
-						+ "        <a href='login.html'>Iniciar sesión</a>\n"
+						+ "        <a href='index.jsp'>Iniciar sesión</a>\n"
 						+ "    </div>\r\n"
 						+ "</div>\r\n"
 						+ "</body>\r\n"

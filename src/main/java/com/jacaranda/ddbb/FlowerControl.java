@@ -2,6 +2,7 @@ package com.jacaranda.ddbb;
 
 import java.util.ArrayList;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.jacaranda.model.Flower;
@@ -23,6 +24,8 @@ public class FlowerControl {
 				session.getTransaction().commit();
 				result = true;
 			}
+		}catch(HibernateException h) {//no se ha podido conectar a la base de datos
+			
 		}catch(ControlException e) { //no se ha encontrado el usuario en la base de datos
 			
 		}catch (Exception e) {
@@ -32,7 +35,7 @@ public class FlowerControl {
 		return result;
 	}
 	
-	public static Flower getFlower(int code) throws ControlException {
+	public static Flower getFlower(int code) throws ControlException, HibernateException {
 		Session session = ConnectionDDBB.getSession();
 		Flower f = session.get(Flower.class, code);
 		if(f==null) {
@@ -41,13 +44,13 @@ public class FlowerControl {
 		return f;
 	}
 	
-	public static ArrayList<Flower> getFlowerList(){
+	public static ArrayList<Flower> getFlowerList() throws HibernateException{
 		Session session = ConnectionDDBB.getSession();
 		ArrayList<Flower> flowers = (ArrayList<Flower>) session.createQuery("from FLOWER", Flower.class).getResultList();
 		return flowers;
 	}
 	
-	public static ArrayList<Flower> getCategoryFlowerList(String colorCode){
+	public static ArrayList<Flower> getCategoryFlowerList(String colorCode) throws HibernateException{
 		Session session = ConnectionDDBB.getSession();
 		ArrayList<Flower> flowers = (ArrayList<Flower>) session.createQuery("SELECT f FROM com.jacaranda.model.Flower f where color='" + colorCode + "'", Flower.class).getResultList();
 		return flowers;
