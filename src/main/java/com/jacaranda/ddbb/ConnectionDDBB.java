@@ -14,15 +14,15 @@ public class ConnectionDDBB {
 	 */
 	private static StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
 	private static SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
-	private static Session session;
-	
+	private static Session session = sf.openSession();
+		
 	/**
 	 * Método que obtiene la sesión en la base de datos
 	 * @return la sesión en la base de datos
 	 * @throws ControlException si no se puede acceder a la base de datos
 	 */
 	public static Session getSession() throws HibernateException {
-		session = sf.openSession();
+		//session = sf.openSession();
 		return session;
 	}
 

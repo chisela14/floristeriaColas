@@ -20,6 +20,9 @@ public class Color {
 	@OneToMany(mappedBy ="color", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Flower> flowerList;
 	
+	public Color() {
+		
+	}
 	public Color(String code, String name, String description) {
 		this.code = code;
 		this.name = name;

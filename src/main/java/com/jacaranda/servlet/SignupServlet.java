@@ -1,7 +1,7 @@
 package com.jacaranda.servlet;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +38,7 @@ public class SignupServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String lastName = request.getParameter("last_name");
-		LocalDate birthDate = LocalDate.parse(request.getParameter("date_of_birth"));
+		LocalDateTime birthDate = LocalDateTime.parse(request.getParameter("date_of_birth"));
 		String genre = request.getParameter("genre");
 		System.out.println(genre);
 		String username = request.getParameter("username");

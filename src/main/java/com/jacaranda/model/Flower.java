@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,9 +16,14 @@ public class Flower {
 	private String name;
 	private String description;
 	private float price;
-	@ManyToOne //TO DO arreglar mapeo
+	@ManyToOne 
+	@JoinColumn(name="color")
 	private Color color;
 	
+	public Flower() {
+		
+	}
+
 	public Flower(int code, String name, String description, float price, Color color) {
 		this.code = code;
 		this.name = name;

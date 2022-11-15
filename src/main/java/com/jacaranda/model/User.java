@@ -1,6 +1,6 @@
 package com.jacaranda.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ public class User {
 	@Column(name="last_name")
 	private String lastName;
 	@Column(name="date_of_birth")
-	private LocalDate dateOfBirth;
+	private LocalDateTime dateOfBirth;
 	private String genre; 
 	private boolean admin;
 
@@ -38,7 +38,7 @@ public class User {
 	 * @param genre género
 	 * @throws UserException lanza esta exception propagada de los setters si alguno de los parámetros no es correcto
 	 */
-	public User(String username, String password, String firstName, String lastName, LocalDate dateOfBirth,
+	public User(String username, String password, String firstName, String lastName, LocalDateTime dateOfBirth,
 			String genre) throws UserException {
 		this.setUsername(username);
 		this.setPassword(password);
@@ -102,13 +102,13 @@ public class User {
 		}
 	}
 
-	public LocalDate getDateOfBirth() {
+	public LocalDateTime getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDate dateOfBirth) throws UserException {
-		LocalDate MIN = LocalDate.parse("1920-01-01");
-		LocalDate MAX = LocalDate.parse("2010-01-01");
+	public void setDateOfBirth(LocalDateTime dateOfBirth) throws UserException {
+		LocalDateTime MIN = LocalDateTime.parse("1920-01-01");
+		LocalDateTime MAX = LocalDateTime.parse("2010-01-01");
 		if(dateOfBirth == null) {
 			throw new UserException("La fecha introducida no es válida");
 		}else {

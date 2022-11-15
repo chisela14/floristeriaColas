@@ -16,6 +16,7 @@ import com.jacaranda.ddbb.ControlException;
 import com.jacaranda.ddbb.FlowerControl;
 import com.jacaranda.ddbb.UserControl;
 import com.jacaranda.model.Flower;
+import com.jacaranda.model.User;
 
 
 /**
@@ -63,9 +64,11 @@ public class LoginServlet extends HttpServlet {
 			try {
 				//Comprobar si el usuario es válido
 				if(UserControl.checkUser(username, passwordEncript)) {
+					//recuperar sesión con tipo User
+					User user = UserControl.getUser(username);
 					HttpSession session = request.getSession();
 					session.setAttribute("login", "True");
-					session.setAttribute("user", username);
+					session.setAttribute("usuario", user);
 					ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
 					response.getWriter().append("<!DOCTYPE html>\n"
 							+ "<html>\n"
@@ -75,6 +78,7 @@ public class LoginServlet extends HttpServlet {
 							+ "    <link rel='stylesheet' type='text/css' href='css/style.css'>\n"
 							+ "</head>\n"
 							+ "<body>\n"
+							+ showButton(user) + "\n"
 							+ "    Hola "+ username + "\n" + showFlowers(flowerList) 
 							+ "    \n"
 							+ "</body>\n"
@@ -111,6 +115,13 @@ public class LoginServlet extends HttpServlet {
 			result.append(f.toString() + "\n");
 		}
 		return result.toString();
+	}
+	private String showButton(User user) {
+		String result = "";
+		if(user.isAdmin()) {
+			result = "<a href='addFlower.jsp'> Añadir artículo </a>"; 
+		}
+		return result;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import com.jacaranda.model.Flower;
 import com.jacaranda.model.User;
@@ -46,7 +47,9 @@ public class FlowerControl {
 	
 	public static ArrayList<Flower> getFlowerList() throws HibernateException{
 		Session session = ConnectionDDBB.getSession();
-		ArrayList<Flower> flowers = (ArrayList<Flower>) session.createQuery("from FLOWER", Flower.class).getResultList();
+		String select = "SELECT * FROM FLOWER";
+		Query<Flower> query = session.createNativeQuery(select, Flower.class);
+		ArrayList<Flower> flowers = (ArrayList<Flower>) query.getResultList();
 		return flowers;
 	}
 	
