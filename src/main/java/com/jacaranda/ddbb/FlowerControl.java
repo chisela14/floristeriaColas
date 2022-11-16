@@ -7,28 +7,19 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import com.jacaranda.model.Flower;
-import com.jacaranda.model.User;
 
 public class FlowerControl {
 
-	public static boolean addFlower(String username, Flower f) throws ControlException {
+	public static boolean addFlower(Flower f) throws ControlException {
 		boolean result = false;
-		Session session = null;
+		Session session = ConnectionDDBB.getSession();
 		try {
-			User u = UserControl.getUser(username);
-			if(!u.isAdmin()) {
-				throw new ControlException("Este usuario no puede añadir artículos porque no es administrador");
-			}else {
-				session = ConnectionDDBB.getSession();
-				session.getTransaction().begin();
-				session.save(f);
-				session.getTransaction().commit();
-				result = true;
-			}
+			session.getTransaction().begin();
+			session.save(f);
+			session.getTransaction().commit();
+			result = true;
 		}catch(HibernateException h) {//no se ha podido conectar a la base de datos
-			
-		}catch(ControlException e) { //no se ha encontrado el usuario en la base de datos
-			
+				
 		}catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new ControlException("El artículo ya existe en la base de datos");

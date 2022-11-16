@@ -24,8 +24,7 @@ public class Flower {
 		
 	}
 
-	public Flower(int code, String name, String description, float price, Color color) {
-		this.code = code;
+	public Flower(String name, String description, float price, Color color) {
 		this.name = name;
 		this.description = description;
 		this.price = price;

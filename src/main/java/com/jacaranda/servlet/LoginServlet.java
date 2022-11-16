@@ -67,7 +67,7 @@ public class LoginServlet extends HttpServlet {
 					//recuperar sesiÃ³n con tipo User
 					User user = UserControl.getUser(username);
 					HttpSession session = request.getSession();
-					session.setAttribute("usuario", user);
+					session.setAttribute("user", user);
 					ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
 					response.getWriter().append("<!DOCTYPE html>\n"
 							+ "<html>\n"
@@ -79,8 +79,8 @@ public class LoginServlet extends HttpServlet {
 							+ "<body>\n"
 							+"<div class=\"header\">"
 							+ showButton(user) + "\n"
-							+"Floristería Colás"
-							+ "    <div class='user'>Hola "+ username + "</div>\n" 
+							+"Floristerï¿½a Colï¿½s"
+							+ "    <div class='user'>Hola "+ user.getFirstName() + "</div>\n" 
 							+ "</div>\n"
 							+ "<div class=\"grid-container\">"
 							+ showFlowers(flowerList)
