@@ -61,3 +61,22 @@ body {
     font-size: 1rem;
     color: black;
 }
+
+.btn{
+    background: 0 0 rgb(121, 0, 94);
+    border:1px solid rgb(102, 0, 85);
+    border-radius:3px;
+    color: white;
+    font-size:1rem;
+    padding:10 50px;
+    font-weight: 400;
+    font-family:inherit;
+}
+.btn:hover{
+    border-color:#ffffff;
+}
+
+#link{
+	text-decoration: none;
+	padding: 1px 6px;
+}
