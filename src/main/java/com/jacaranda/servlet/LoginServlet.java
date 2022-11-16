@@ -67,7 +67,6 @@ public class LoginServlet extends HttpServlet {
 					//recuperar sesión con tipo User
 					User user = UserControl.getUser(username);
 					HttpSession session = request.getSession();
-					session.setAttribute("login", "True");
 					session.setAttribute("usuario", user);
 					ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
 					response.getWriter().append("<!DOCTYPE html>\n"
@@ -75,12 +74,17 @@ public class LoginServlet extends HttpServlet {
 							+ "<head>\n"
 							+ "    <meta charset='utf-8'>\n"
 							+ "    <title>Catálogo</title>\n"
-							+ "    <link rel='stylesheet' type='text/css' href='css/style.css'>\n"
+							+ "    <link rel='stylesheet' type='text/css' href='css/flowerList.css'>\n"
 							+ "</head>\n"
 							+ "<body>\n"
+							+"<div class=\"header\">"
 							+ showButton(user) + "\n"
-							+ "    Hola "+ username + "\n" + showFlowers(flowerList) 
-							+ "    \n"
+							+"Florister�a Col�s"
+							+ "    <div class='user'>Hola "+ username + "</div>\n" 
+							+ "</div>\n"
+							+ "<div class=\"grid-container\">"
+							+ showFlowers(flowerList)
+							+ "</div>\n"
 							+ "</body>\n"
 							+ "</html>");
 				}else {
@@ -110,16 +114,23 @@ public class LoginServlet extends HttpServlet {
 	}
 	
 	private String showFlowers(ArrayList<Flower> flowers) {
-		StringBuilder result = new StringBuilder("Artículos: \n");
+		StringBuilder result = new StringBuilder();
 		for(Flower f: flowers) {
-			result.append(f.toString() + "\n");
+			result.append("<div class=\"grid-item\">\n"
+				+ "            <div class=\"image\">\n"
+				+ "                <img src=\"media/flores.jpg\"> \n"
+				+ "            </div>\n"
+				+ "            <div class=\"info\">\n"
+				+ f.toString() + "\n"
+				+ "            </div>\n"
+				+ "        </div>");
 		}
 		return result.toString();
 	}
 	private String showButton(User user) {
 		String result = "";
 		if(user.isAdmin()) {
-			result = "<a href='addFlower.jsp'> Añadir artículo </a>"; 
+			result = "<div class='addButton'><a href='addFlower.jsp'> Añadir artículo </a></div>"; 
 		}
 		return result;
 	}

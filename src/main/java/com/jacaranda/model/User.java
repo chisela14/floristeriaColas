@@ -107,8 +107,8 @@ public class User {
 	}
 
 	public void setDateOfBirth(LocalDateTime dateOfBirth) throws UserException {
-		LocalDateTime MIN = LocalDateTime.parse("1920-01-01");
-		LocalDateTime MAX = LocalDateTime.parse("2010-01-01");
+		LocalDateTime MIN = LocalDateTime.parse("1920-01-01T00:00:00.00");
+		LocalDateTime MAX = LocalDateTime.parse("2010-01-01T00:00:00.00");
 		if(dateOfBirth == null) {
 			throw new UserException("La fecha introducida no es válida");
 		}else {

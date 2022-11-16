@@ -31,5 +31,5 @@
 form {
 	display: grid;
 	grid-area: form;
-	background-color: rgb(250, 196, 96); /*falta estructurar el texto*/
+	background-color: lightgreen; /*falta estructurar el texto*/
 }
