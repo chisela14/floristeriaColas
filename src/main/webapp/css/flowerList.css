@@ -79,4 +79,5 @@ body {
 #link{
 	text-decoration: none;
 	padding: 1px 6px;
+    float:left;
 }
