@@ -79,6 +79,7 @@ public class LoginServlet extends HttpServlet {
 							+ "<body>\n"
 							+"<div class=\"header\">"
 							+ showButton(user) + "\n"
+							+ "<a href='index.jsp' class='btn' id='link'>Cerrar sesión</a>"
 							+"Florister�a Col�s"
 							+ "    <div class='user'>Hola "+ user.getFirstName() + "</div>\n" 
 							+ "</div>\n"
@@ -130,7 +131,7 @@ public class LoginServlet extends HttpServlet {
 	private String showButton(User user) {
 		String result = "";
 		if(user.isAdmin()) {
-			result = "<div class='addButton'><a href='addFlower.jsp'> Añadir artículo </a></div>"; 
+			result = "<div class='addButton'><a href='addFlower.jsp' class='btn' id='link'> Añadir artículo </a></div>"; 
 		}
 		return result;
 	}

@@ -1,52 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>FC - Crear cuenta</title>
-<link rel='stylesheet' type='text/css'  href='css/style.css'>
+<link rel='stylesheet' type='text/css'  href='css/login.css'>
 </head>
 <body>
+	<table align="center">
+		<tr>
+			<td>
+				<div class="title">
+					<h1>FloristerÃ­a ColÃ¡s</h1>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<div class="form-container">
+				<form action="SignupServlet" method="post">
+					<div class="form-title">
+						<p>Crear cuenta</p>
+					</div>
+					<div class="form-group">
+						<label class="form-label" for="name">Nombre</label>
+						<input type="text" class="form-input" placeholder="Pepito" name="name" required>
+					</div>
+					<div class="form-group">
+						<label class="form-label" for="last_name">Apellidos</label>
+						<input type="text" class="form-input" placeholder="PÃ©rez" name="last_name" required>
+					</div>
+					<div class="form-group">
+						<label class="form-label" for="date_of_birth">Fecha de nacimiento</label>
+						<input type="date" class="form-input" name="date_of_birth" required>
+					</div>
+					<div class="form-group">
+						<label class="form-label" for="genre">GÃ©nero</label>
+						<input type="radio" id="form-radio" value="Male" name="genre" required>Hombre
+						<input type="radio" id="form-radio" value="Female" name="genre">Mujer
+					</div>
+					<div class="form-group">
+						<label class="form-label" for="username">Username</label>
+						<input type="text" class="form-input" placeholder="perezpep25" name="username" required>
+					</div>
+					<div class="form-group">
+						<label class="form-label" for="password">Password</label>
+						<input type="password" class="form-input" name="password" required>
+					</div>
+					<div class="form-button">
+						<button type="submit" class="btn">Enviar</button><br>
+						<p><a href="index.jsp" class="btn" id="link">Volver</a></p>
+					</div>
+				</form>
+			</div>
+			</td>
+		</tr>
+	</table>
 <div class="content">
-	<div class="title">
-		<h1>Floristería Colás</h1>
-	</div>
-	<div class="image">
-	<img src="media/flores.jpg">
-	</div>
-	<form action="SignupServlet" method="post">
-		<div class="formTitle">
-	   		<p>Crear cuenta</p>
-	   	</div>
-	   	<div class="name">
-   			<label class="label" for="name">Nombre</label>
-   			<input type="text" class="form-input" placeholder="Pepito" name="name" required>
-   		</div>
-   		<div class="last_name">
-   			<label class="label" for="last_name">Apellidos</label>
-   			<input type="text" class="form-input" placeholder="Pérez" name="last_name" required>
-   		</div>
-   		<div class="date_of_birth">
-   			<label class="label" for="date_of_birth">Fecha de nacimiento</label>
-   			<input type="date" class="form-input" name="date_of_birth" required>
-   		</div>
-   		<div class="genre">
-   			<label class="label" for="genre">Género</label>
-   			<input type="radio" class="form-input" value="Male" name="genre" required>Hombre
-   			<input type="radio" class="form-input" value="Female" name="genre">Mujer
-   		</div>
-   		<div class="user">
-   			<label class="label" for="username">Username</label>
-   			<input type="text" class="form-input" placeholder="perezpep25" name="username" required>
-   		</div>
-        <div class="password">
-        	<label class="label" for="password">Password</label>
-          	<input type="password" class="form-input" name="password" required>
-        </div>
-        <div class="button">
-        	<button type="submit">Enviar</button><br>
-        	<p><a href="index.jsp">Volver a Iniciar sesión</a></p>
-        </div>
-     </form>
+	
+	
+	
 </div>
 
 </body>
