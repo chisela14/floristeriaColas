@@ -1,50 +1,57 @@
 package com.jacaranda.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class PurchaseId implements Serializable{
 	
-//	https://thorben-janssen.com/hibernate-tip-many-to-many-association-with-additional-attributes/
-	private static final long serialVersionUID = -8675233731749410684L; 
-	private User user;
-	private Flower flower;
-	private LocalDateTime date;
+//https://vladmihalcea.com/the-best-way-to-map-a-many-to-many-association-with-extra-columns-when-using-jpa-and-hibernate/
+
+	private static final long serialVersionUID = 3556125921316204632L;
+	
+	@Column(name="username")
+	private String userId;
+	@Column(name="flower_code")
+	private int flowerId;
+	@Column(name="date")
+	private LocalDate dateId;
 
 	public PurchaseId() {
 		
 	}
 
-	public User getUser() {
-		return user;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public Flower getFlower() {
-		return flower;
+	public int getFlowerId() {
+		return flowerId;
 	}
 
-	public void setFlower(Flower flower) {
-		this.flower = flower;
+	public void setFlowerId(int flowerId) {
+		this.flowerId = flowerId;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
+	public LocalDate getDateId() {
+		return dateId;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setDateId(LocalDate dateId) {
+		this.dateId = dateId;
 	}
-
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, flower, user);
+		return Objects.hash(dateId, flowerId, userId);
 	}
 
 	@Override
@@ -56,9 +63,17 @@ public class PurchaseId implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		PurchaseId other = (PurchaseId) obj;
-		return Objects.equals(date, other.date) && Objects.equals(flower, other.flower)
-				&& Objects.equals(user, other.user);
+		return Objects.equals(dateId, other.dateId) && flowerId == other.flowerId && Objects.equals(userId, other.userId);
 	}
+	
+
+	
+
+	
+
+
+
+	
 	
 
 }

@@ -1,6 +1,6 @@
 package com.jacaranda.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,10 +23,11 @@ public class User {
 	@Column(name="last_name")
 	private String lastName;
 	@Column(name="date_of_birth")
-	private LocalDateTime dateOfBirth;
+//	private LocalDateTime dateOfBirth;
+	private LocalDate dateOfBirth;
 	private String genre; 
 	private boolean admin;
-	@OneToMany(mappedBy= "username", cascade= CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy= "user", cascade= CascadeType.ALL, orphanRemoval = true)
 	private List<Purchase> purchases = new ArrayList<>();
 
 	public User() {
@@ -44,7 +45,7 @@ public class User {
 	 * @param genre género
 	 * @throws UserException lanza esta exception propagada de los setters si alguno de los parámetros no es correcto
 	 */
-	public User(String username, String password, String firstName, String lastName, LocalDateTime dateOfBirth,
+	public User(String username, String password, String firstName, String lastName, LocalDate dateOfBirth,
 			String genre) throws UserException {
 		this.setUsername(username);
 		this.setPassword(password);
@@ -108,13 +109,15 @@ public class User {
 		}
 	}
 
-	public LocalDateTime getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDateTime dateOfBirth) throws UserException {
-		LocalDateTime MIN = LocalDateTime.parse("1920-01-01T00:00:00.00");
-		LocalDateTime MAX = LocalDateTime.parse("2010-01-01T00:00:00.00");
+	public void setDateOfBirth(LocalDate dateOfBirth) throws UserException {
+//		LocalDateTime MIN = LocalDateTime.parse("1920-01-01T00:00:00.00");
+//		LocalDateTime MAX = LocalDateTime.parse("2010-01-01T00:00:00.00");
+		LocalDate MIN = LocalDate.parse("1920-01-01");
+		LocalDate MAX = LocalDate.parse("2010-01-01");
 		if(dateOfBirth == null) {
 			throw new UserException("La fecha introducida no es válida");
 		}else {

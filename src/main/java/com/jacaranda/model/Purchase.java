@@ -1,48 +1,59 @@
 package com.jacaranda.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
+//import javax.persistence.Id;
+//import javax.persistence.IdClass;
+//import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 
 @Entity
-@IdClass(PurchaseId.class)
+//@IdClass(PurchaseId.class)
 public class Purchase {
 	
-	@Id
+	@EmbeddedId
+	private PurchaseId id;
+	
+//	@Id
+//	@ManyToOne
+//	@JoinColumn(
+//			name="username",
+//			insertable=false, updatable = false
+//			)
 	@ManyToOne
-	@JoinColumn(
-			name="username",
-			insertable=false, updatable = false
-			)
+	@MapsId("userId")
 	private User user;
-	@Id
+//	@Id
+//	@ManyToOne
+//	@JoinColumn(
+//			name="flower_code",
+//			insertable=false, updatable = false
+//			)
 	@ManyToOne
-	@JoinColumn(
-			name="flower_code",
-			insertable=false, updatable = false
-			)
+	@MapsId("flowerId")
 	private Flower flower;
 	private int quantity;
 	private float price;
-	@Id
+//	@Id
+//	@ManyToOne
+//	@JoinColumn(
+//			name="date",
+//			insertable=false, updatable = false
+//			)
 	@ManyToOne
-	@JoinColumn(
-			name="date",
-			insertable=false, updatable = false
-			)
-	private LocalDateTime date;
+	@MapsId("dateId")
+	private LocalDate date;
 	
 
 	public Purchase() {
 		
 	}
 
-	public Purchase(User user, Flower flower, LocalDateTime date, int quantity, float price) {
+	public Purchase(User user, Flower flower, LocalDate date, int quantity, float price) {
 		this.user = user;
 		this.flower = flower;
 		this.date = date;
@@ -66,11 +77,11 @@ public class Purchase {
 		this.flower = flower;
 	}
 
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

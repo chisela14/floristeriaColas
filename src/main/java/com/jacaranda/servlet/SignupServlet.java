@@ -1,8 +1,9 @@
 package com.jacaranda.servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+//import java.time.LocalDateTime;
+//import java.time.LocalTime;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,8 +42,9 @@ public class SignupServlet extends HttpServlet {
 		String lastName = request.getParameter("last_name");
 		//conseguir la fecha como string, añadir la hora actual y parsearlo para crear el usuario
 		String date = request.getParameter("date_of_birth");
-		String time = LocalTime.now().toString();
-		LocalDateTime birthDate = LocalDateTime.parse(date + "T" + time); //formato por defecto yyyy-mm-ddT00:00:00.00
+//		String time = LocalTime.now().toString();
+		//LocalDateTime birthDate = LocalDateTime.parse(date + "T" + time); //formato por defecto yyyy-mm-ddT00:00:00.00
+		LocalDate birthDate = LocalDate.parse(date);
 		String genre = request.getParameter("genre");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");

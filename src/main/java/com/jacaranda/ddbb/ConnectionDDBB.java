@@ -21,7 +21,7 @@ public class ConnectionDDBB {
 	 * @return la sesión en la base de datos
 	 * @throws HibernateException si no se puede acceder a la base de datos (no configurado ahora mismo)
 	 */
-	public static Session getSession() throws HibernateException {
+	public static Session getSession() {
 		//session = sf.openSession();
 		return session;
 	}
