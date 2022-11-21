@@ -1,11 +1,15 @@
 package com.jacaranda.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +23,9 @@ public class Flower {
 	@ManyToOne 
 	@JoinColumn(name="color")
 	private Color color;
+	private int stock;
+	@OneToMany(mappedBy= "flower", cascade= CascadeType.ALL, orphanRemoval = true)
+	private List<Purchase> purchasesList = new ArrayList<>();
 	
 	public Flower() {
 		
@@ -67,6 +74,14 @@ public class Flower {
 		return code;
 	}
 
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(code);
@@ -86,7 +101,7 @@ public class Flower {
 
 	@Override
 	public String toString() {
-		return code + "<br>" + name + "<br> Descripción: " + description + "<br> Color: " + color.getCode() + "\n Precio: " + price + " €";
+		return code + "<br>" + name + "<br>Descripción: " + description + "<br>Color: " + color.getCode() + "<br>Precio: " + price + " €";
 	}
 
 	

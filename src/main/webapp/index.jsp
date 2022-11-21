@@ -31,11 +31,11 @@
 					</div>
 					<div class="form-group">
 						<label class="form-label" for="username">Nombre de usuario</label>
-						<input type="text" class="form-input" placeholder="Username" name="username" required>
+						<input type="text" class="form-input" placeholder="user123" name="username" required>
 					</div>
 					<div class="form-group">
 						<label class="form-label" for="password">Contraseña</label>
-						<input type="password" class="form-input" placeholder="Password" name="password" required>
+						<input type="password" class="form-input" placeholder="*******" name="password" required>
 					</div>
 					<div class="form-button">
 						<button type="submit" class="btn">Enviar</button><br><br>

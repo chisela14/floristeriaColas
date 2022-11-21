@@ -13,5 +13,7 @@
   <mapping class="com.jacaranda.model.Color"/>
   <mapping class="com.jacaranda.model.Flower"/>
   <mapping class="com.jacaranda.model.User"/>
+  <mapping class="com.jacaranda.model.Purchase"/>
+ <!--  <mapping class="com.jacaranda.model.PurchaseId"/> -->
  </session-factory>
 </hibernate-configuration>

@@ -15,6 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import com.jacaranda.ddbb.ControlException;
 import com.jacaranda.ddbb.FlowerControl;
 import com.jacaranda.ddbb.UserControl;
+import com.jacaranda.model.Cart;
 import com.jacaranda.model.Flower;
 import com.jacaranda.model.User;
 
@@ -72,8 +73,10 @@ public class LoginServlet extends HttpServlet {
 					if(UserControl.checkUser(username, passwordEncript)) {
 						//recuperar sesión con tipo User
 						User user = UserControl.getUser(username);
+						Cart cart = new Cart();
 						HttpSession session = request.getSession();
 						session.setAttribute("user", user);
+						session.setAttribute("cart", cart);
 						ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
 						response.getWriter().append(showFlowerPage(user, flowerList));
 					}else {
@@ -103,8 +106,13 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 	
-	private String showFlowers(ArrayList<Flower> flowers) {
+	private String showFlowers(User user, ArrayList<Flower> flowers) {
 		StringBuilder result = new StringBuilder();
+		StringBuilder buttonsDiv = new StringBuilder("<div class='buttons'>");
+		if(user.isAdmin()) {
+			buttonsDiv.append("<button>Update</button>\n<button>Delete</button>");
+		}
+		buttonsDiv.append("<button>Carrito</button>\n </div>");
 		for(Flower f: flowers) {
 			result.append("<div class=\"grid-item\">\n"
 				+ "            <div class=\"image\">\n"
@@ -113,6 +121,7 @@ public class LoginServlet extends HttpServlet {
 				+ "            <div class=\"info\">\n"
 				+ f.toString() + "\n"
 				+ "            </div>\n"
+				+ buttonsDiv
 				+ "        </div>");
 		}
 		return result.toString();
@@ -140,7 +149,7 @@ public class LoginServlet extends HttpServlet {
 				+ "    <div class='user'>Hola "+ user.getFirstName() + "</div>\n" 
 				+ "</div>\n"
 				+ "<div class=\"grid-container\">"
-				+ showFlowers(flowerList)
+				+ showFlowers(user, flowerList)
 				+ "</div>\n"
 				+ "</body>\n"
 				+ "</html>";

@@ -1,11 +1,15 @@
 package com.jacaranda.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,9 +26,11 @@ public class User {
 	private LocalDateTime dateOfBirth;
 	private String genre; 
 	private boolean admin;
+	@OneToMany(mappedBy= "username", cascade= CascadeType.ALL, orphanRemoval = true)
+	private List<Purchase> purchases = new ArrayList<>();
 
 	public User() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	/**
