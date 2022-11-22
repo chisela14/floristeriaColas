@@ -3,49 +3,51 @@ package com.jacaranda.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-//import javax.persistence.Id;
-//import javax.persistence.IdClass;
-//import javax.persistence.JoinColumn;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+import javax.persistence.Table;
 
 @Entity
-//@IdClass(PurchaseId.class)
+@Table(name="PURCHASE")
+@IdClass(PurchaseId.class)
 public class Purchase {
 	
-	@EmbeddedId
-	private PurchaseId id;
+//	@EmbeddedId
+//	private PurchaseId id;
 	
-//	@Id
-//	@ManyToOne
-//	@JoinColumn(
-//			name="username",
-//			insertable=false, updatable = false
-//			)
+	@Id
 	@ManyToOne
-	@MapsId("userId")
+	@JoinColumn(
+			name="username",
+			insertable=false, updatable = false
+			)
+//	@ManyToOne
+//	@MapsId("userId")
 	private User user;
-//	@Id
-//	@ManyToOne
-//	@JoinColumn(
-//			name="flower_code",
-//			insertable=false, updatable = false
-//			)
+	@Id
 	@ManyToOne
-	@MapsId("flowerId")
+	@JoinColumn(
+			name="flower_code",
+			insertable=false, updatable = false
+			)
+//	@ManyToOne
+//	@MapsId("flowerId")
 	private Flower flower;
 	private int quantity;
 	private float price;
-//	@Id
+	@Id
 //	@ManyToOne
 //	@JoinColumn(
 //			name="date",
 //			insertable=false, updatable = false
 //			)
-	@ManyToOne
-	@MapsId("dateId")
+	
+//	@MapsId("dateId")
+	@Column(name="date")
 	private LocalDate date;
 	
 

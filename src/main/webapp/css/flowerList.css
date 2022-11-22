@@ -22,7 +22,7 @@ body {
 .addButton{
 	float:left;
 }
-.user{
+.cart, .user{
 	float:right;
 }
 
@@ -58,8 +58,16 @@ body {
 }
 
 .grid-item .info {
-    font-size: 1rem;
+	width: 90%;
+    height: 60%;
+    font-size: 0.5rem;
     color: black;
+}
+.grid-item .buttons{
+	width: 100%;
+    height: 20%;
+	font-size: 0.3rem;
+	overflow: hidden;
 }
 
 .btn{

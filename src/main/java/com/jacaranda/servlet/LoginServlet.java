@@ -34,24 +34,68 @@ public class LoginServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+    /**
+     * Se accederá por get si se cancela un formulario
+     */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession se = request.getSession(); 
 		User userSession = (User) se.getAttribute("user");
 		if(userSession !=null){
 			ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
 			response.getWriter().append(showFlowerPage(userSession, flowerList));
 		}else {
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			String passwordEncript = DigestUtils.md5Hex(password);
-			String error = null;
-			//Comprobar que se introducen un usuario y una contraseña
-			if(username == null || username.isBlank() ||username.isEmpty() ||
-					password == null || password.isBlank() ||password.isEmpty()) {
+			response.sendRedirect("error.jsp?msg='No te has autenticado o no estás autorizado'");
+		}
+	}
+
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String passwordEncript = DigestUtils.md5Hex(password);
+		String error = null;
+		
+		//Comprobar que se introducen un usuario y una contraseña
+		if(username == null || username.isBlank() ||username.isEmpty() ||
+				password == null || password.isBlank() ||password.isEmpty()) {
+			response.getWriter().append("<!DOCTYPE html>\n"
+					+ "<html>\n"
+					+ "<head>\n"
+					+ "	<title>FC - Error</title>\n"
+					+ "	<link type=\"text/css\" rel=\"stylesheet\" href=\"css/error.css\" />\n"
+					+ "</head>\n"
+					+ "<body>\n"
+					+ "    <div>\n"
+					+ "        <h1>Error</h1>\n"
+					+ "        <h2>Deben introducirse un usuario y una contraseña</h2>\n"
+					+ "        <a href='index.jsp'>volver</a>\n"
+					+ "    </div>\n"
+					+ "</div>\n"
+					+ "</body>\n"
+					+ "</html>");
+		}else {
+			try {
+				//Comprobar si el usuario es válido
+				if(UserControl.checkUser(username, passwordEncript)) {
+					//recuperar sesión con tipo User
+					User user = UserControl.getUser(username);
+					Cart cart = new Cart();
+					HttpSession session = request.getSession();
+					session.setAttribute("user", user);
+					session.setAttribute("cart", cart);
+					ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
+					response.getWriter().append(showFlowerPage(user, flowerList));
+				}else {
+					error = "El usuario o la contraseña no son correctos";
+				}
+			}catch(ControlException c) { //Comprobar el acceso a bbdd
+				error = c.getMessage();
+			}
+			if(error != null) {
 				response.getWriter().append("<!DOCTYPE html>\n"
 						+ "<html>\n"
 						+ "<head>\n"
@@ -61,58 +105,18 @@ public class LoginServlet extends HttpServlet {
 						+ "<body>\n"
 						+ "    <div>\n"
 						+ "        <h1>Error</h1>\n"
-						+ "        <h2>Deben introducirse un usuario y una contraseña</h2>\n"
-						+ "        <a href='index.jsp'>volver</a>\n"
-						+ "    </div>\n"
-						+ "</div>\n"
-						+ "</body>\n"
+						+ "        <h2>" + error + "</h2>\n"
+						+ "        <a href=\"signup.html\">volver</a>\n"
+						+ "    </div>\r\n"
+						+ "</div>\r\n"
+						+ "</body>\r\n"
 						+ "</html>");
-			}else {
-				try {
-					//Comprobar si el usuario es válido
-					if(UserControl.checkUser(username, passwordEncript)) {
-						//recuperar sesión con tipo User
-						User user = UserControl.getUser(username);
-						Cart cart = new Cart();
-						HttpSession session = request.getSession();
-						session.setAttribute("user", user);
-						session.setAttribute("cart", cart);
-						ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
-						response.getWriter().append(showFlowerPage(user, flowerList));
-					}else {
-						error = "El usuario o la contraseña no son correctos";
-					}
-				}catch(ControlException c) { //Comprobar el acceso a bbdd
-					error = c.getMessage();
-				}
-				if(error != null) {
-					response.getWriter().append("<!DOCTYPE html>\n"
-							+ "<html>\n"
-							+ "<head>\n"
-							+ "	<title>FC - Error</title>\n"
-							+ "	<link type=\"text/css\" rel=\"stylesheet\" href=\"css/error.css\" />\n"
-							+ "</head>\n"
-							+ "<body>\n"
-							+ "    <div>\n"
-							+ "        <h1>Error</h1>\n"
-							+ "        <h2>" + error + "</h2>\n"
-							+ "        <a href=\"signup.html\">volver</a>\n"
-							+ "    </div>\r\n"
-							+ "</div>\r\n"
-							+ "</body>\r\n"
-							+ "</html>");
-				}
 			}
 		}
 	}
 	
 	private String showFlowers(User user, ArrayList<Flower> flowers) {
 		StringBuilder result = new StringBuilder();
-		StringBuilder buttonsDiv = new StringBuilder("<div class='buttons'>");
-		if(user.isAdmin()) {
-			buttonsDiv.append("<button>Update</button>\n<button>Delete</button>");
-		}
-		buttonsDiv.append("<button>Carrito</button>\n </div>");
 		for(Flower f: flowers) {
 			result.append("<div class=\"grid-item\">\n"
 				+ "            <div class=\"image\">\n"
@@ -121,18 +125,29 @@ public class LoginServlet extends HttpServlet {
 				+ "            <div class=\"info\">\n"
 				+ f.toString() + "\n"
 				+ "            </div>\n"
-				+ buttonsDiv
+				+ showItemButtons(user, f)
 				+ "        </div>");
 		}
 		return result.toString();
 	}
-	private String showButton(User user) {
+	private String showAddButton(User user) {
 		String result = "";
 		if(user.isAdmin()) {
 			result = "<div class='addButton'><a href='addFlower.jsp' class='btn' id='link'> Añadir artículo </a></div>"; 
 		}
 		return result;
 	}
+	private String showItemButtons(User user, Flower flower) {
+		StringBuilder buttonsDiv = new StringBuilder("<div class='buttons'>");
+		if(user.isAdmin()) {
+			buttonsDiv.append("<a href='updateFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> Actualizar </a>"
+					+ "<a href='deleteFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> Borrar </a>");
+		}
+		buttonsDiv.append("<a href='CartServlet?flower=" + flower.getCode() +"' class='btn' id='link'> Carro </a></div>");
+		return buttonsDiv.toString();
+	}
+	
+	
 	private String showFlowerPage(User user, ArrayList<Flower> flowerList) {
 		String result = "<!DOCTYPE html>\n"
 				+ "<html>\n"
@@ -143,10 +158,11 @@ public class LoginServlet extends HttpServlet {
 				+ "</head>\n"
 				+ "<body>\n"
 				+"<div class=\"header\">"
-				+ showButton(user) + "\n"
+				+ showAddButton(user) + "\n"
 				+ "<a href='index.jsp' class='btn' id='link'>Cerrar sesión</a>"
 				+"Florister�a Col�s"
 				+ "    <div class='user'>Hola "+ user.getFirstName() + "</div>\n" 
+				+ "    <div class='cart'><a href='cart.jsp' class='btn' id='link'> Carro </a> </div>\n" 
 				+ "</div>\n"
 				+ "<div class=\"grid-container\">"
 				+ showFlowers(user, flowerList)

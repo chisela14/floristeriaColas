@@ -9,9 +9,9 @@ public class CartItem {
 		
 	}
 
-	public CartItem(int itemCode, int quantity) {
+	public CartItem(int itemCode) {
 		this.itemCode = itemCode;
-		this.quantity = quantity;
+		this.quantity = 1;
 	}
 
 	public int getItemCode() {

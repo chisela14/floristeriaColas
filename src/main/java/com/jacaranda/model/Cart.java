@@ -6,7 +6,7 @@ public class Cart {
 	private ArrayList<CartItem> items;
 
 	public Cart() {
-		
+		this.items = new ArrayList<CartItem>();
 	}
 
 	public ArrayList<CartItem> getItems() {

@@ -4,54 +4,54 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+//import javax.persistence.Column;
+//import javax.persistence.Embeddable;
 
-@Embeddable
+//@Embeddable
 public class PurchaseId implements Serializable{
 	
 //https://vladmihalcea.com/the-best-way-to-map-a-many-to-many-association-with-extra-columns-when-using-jpa-and-hibernate/
 
 	private static final long serialVersionUID = 3556125921316204632L;
 	
-	@Column(name="username")
-	private String userId;
-	@Column(name="flower_code")
-	private int flowerId;
-	@Column(name="date")
-	private LocalDate dateId;
+	//@Column(name="username")
+	private String user;
+	//@Column(name="flower_code")
+	private int flower;
+	//@Column(name="date")
+	private LocalDate date;
 
 	public PurchaseId() {
 		
 	}
 
 	public String getUserId() {
-		return userId;
+		return user;
 	}
 
 	public void setUserId(String userId) {
-		this.userId = userId;
+		this.user = userId;
 	}
 
 	public int getFlowerId() {
-		return flowerId;
+		return flower;
 	}
 
 	public void setFlowerId(int flowerId) {
-		this.flowerId = flowerId;
+		this.flower = flowerId;
 	}
 
 	public LocalDate getDateId() {
-		return dateId;
+		return date;
 	}
 
 	public void setDateId(LocalDate dateId) {
-		this.dateId = dateId;
+		this.date = dateId;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateId, flowerId, userId);
+		return Objects.hash(date, flower, user);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class PurchaseId implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		PurchaseId other = (PurchaseId) obj;
-		return Objects.equals(dateId, other.dateId) && flowerId == other.flowerId && Objects.equals(userId, other.userId);
+		return Objects.equals(date, other.date) && flower == other.flower && Objects.equals(user, other.user);
 	}
 	
 
