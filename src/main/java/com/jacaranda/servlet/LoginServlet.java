@@ -2,6 +2,7 @@ package com.jacaranda.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,17 +37,23 @@ public class LoginServlet extends HttpServlet {
     }
     
     /**
-     * Se accederá por get si se cancela un formulario
+     * Se accederá por get si se cancela un formulario o después de añadir un artículo al carrito
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession se = request.getSession(); 
-		User userSession = (User) se.getAttribute("user");
-		if(userSession !=null){
-			ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
-			response.getWriter().append(showFlowerPage(userSession, flowerList));
+		Map params = request.getParameterMap();
+		if(params.size()== 0) {
+			HttpSession se = request.getSession(); 
+			User userSession = (User) se.getAttribute("user");
+			if(userSession !=null){
+				ArrayList<Flower> flowerList = FlowerControl.getFlowerList();
+				response.getWriter().append(showFlowerPage(userSession, flowerList));
+			}else {
+				response.sendRedirect("error.jsp?msg='No te has autenticado o no estás autorizado'");
+			}
 		}else {
-			response.sendRedirect("error.jsp?msg='No te has autenticado o no estás autorizado'");
+			response.sendRedirect("error.jsp?msg='No puedes enviar parámetros por GET a esta página'");
 		}
+		
 	}
 
 
@@ -143,7 +150,12 @@ public class LoginServlet extends HttpServlet {
 			buttonsDiv.append("<a href='updateFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> Actualizar </a>"
 					+ "<a href='deleteFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> Borrar </a>");
 		}
-		buttonsDiv.append("<a href='CartServlet?flower=" + flower.getCode() +"' class='btn' id='link'> Carro </a></div>");
+		if(flower.getStock()>0) {
+			buttonsDiv.append("<form action='CartServlet' method='post'>"
+					+ "<input type='number name='quantity' min='1' max='" + flower.getStock() + "'>"
+					+ "<button name='flower' value='" + flower.getCode() + "'>Carro</button>"
+					+ "</form>");
+		}
 		return buttonsDiv.toString();
 	}
 	

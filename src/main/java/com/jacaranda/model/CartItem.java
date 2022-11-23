@@ -1,5 +1,6 @@
 package com.jacaranda.model;
 
+//AHORA MISMO NO SE USA ESTA CLASE
 public class CartItem {
 	
 	private int itemCode;
@@ -9,9 +10,9 @@ public class CartItem {
 		
 	}
 
-	public CartItem(int itemCode) {
+	public CartItem(int itemCode, int quantity) {
 		this.itemCode = itemCode;
-		this.quantity = 1;
+		this.quantity = quantity;
 	}
 
 	public int getItemCode() {
