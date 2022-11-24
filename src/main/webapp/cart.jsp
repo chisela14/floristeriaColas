@@ -3,42 +3,66 @@
     <%@ page import ="com.jacaranda.model.User" %>
     <%@ page import ="com.jacaranda.model.Flower" %>
     <%@ page import ="com.jacaranda.model.Cart" %>
-    <%@ page import ="com.jacaranda.model.CartItem" %>
     <%@ page import ="com.jacaranda.ddbb.FlowerControl" %>
-    <%@ page import="java.util.ArrayList" %>
+    <%@ page import="java.util.HashMap" %>
+    <%@ page import="java.util.Map" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>FC - Carrito</title>
+<link rel='stylesheet' type='text/css'  href='css/cart.css'>
 </head>
 <body>
 
 	<%HttpSession se = request.getSession(); 
 	User userSession = (User) se.getAttribute("user");
 	if(userSession !=null){
+		Map params = request.getParameterMap();
 		Cart cart = (Cart) se.getAttribute("cart");
-		ArrayList<CartItem> items = cart.getItems();%>
+		HashMap<Integer, Integer> items = cart.getItems();
+		
+		//compruebo si se ha cambiado la cantidad de algún artículo y la actualizo
+		if(params.size() > 0){
+			Integer flowerCode = Integer.parseInt(request.getParameter("flower"));
+			Integer quantity = Integer.parseInt(request.getParameter("quantity"));
+			items.put(flowerCode, quantity);
+			//TO DO comprobar que por parámetro no se pase más cantidad que el stock
+		}%>
+		
 		<div class="header">
-			<a href='index.jsp' class='btn' id='link'>Cerrar sesión</a>"
+			<a href='index.jsp' class='btn' id='link'>Cerrar sesión</a>
 			Floristería Colás
-			<div class='user'>Hola <%=userSession.getFirstName() %>  + </div> 
+			<div class='user'>Hola <%=userSession.getFirstName() %> </div> 
 		</div>
 		<div class="grid-container">
 			Mi carrito
-			<%for(CartItem i: items){%>
+			<% float total = 0;
+			for(Integer code: items.keySet()){
+			Flower f = FlowerControl.getFlower(code); 
+			total += f.getPrice()*items.get(code); %>
 				<div class="grid-item">
 					<div class="image">
 					</div>
 					<div class="info">
+					<%= f.getName() %>
+					<%= f.getPrice() %>
 					</div>
 					<div class="buttons">
-						<form method="post">
+						<form method="post" action="cart.jsp">
+						<input type='number' name='quantity' min='1' max='<%= f.getStock() %>' value='<%= items.get(code) %>' size='4'>
+						<button name='flower' value='<%= code %>'>Actualizar cantidad</button>
 						</form>
 					</div>
-					<%= i.toString() %>
 				</div>
 			<%}%>
+			<div class="cart-buttons">
+				<a href="LoginServlet">Volver al catálogo</a>
+				<form method="post" action="PurchaseServlet">
+				Total: <%= total %>€
+				<button>Comprar</button>
+				</form>
+			</div>
 		</div>
 		
 	<% }else {

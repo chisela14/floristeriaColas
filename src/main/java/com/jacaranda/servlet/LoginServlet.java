@@ -147,15 +147,17 @@ public class LoginServlet extends HttpServlet {
 	private String showItemButtons(User user, Flower flower) {
 		StringBuilder buttonsDiv = new StringBuilder("<div class='buttons'>");
 		if(user.isAdmin()) {
-			buttonsDiv.append("<a href='updateFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> Actualizar </a>"
+			buttonsDiv.append("<a href='updateFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> <img src=\"media/update.svg\"></a>"
 					+ "<a href='deleteFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> Borrar </a>");
 		}
 		if(flower.getStock()>0) {
 			buttonsDiv.append("<form action='CartServlet' method='post'>"
-					+ "<input type='number name='quantity' min='1' max='" + flower.getStock() + "'>"
+					+ "<input type='number' name='quantity' min='1' max='" + flower.getStock() + "' size='4'>"
 					+ "<button name='flower' value='" + flower.getCode() + "'>Carro</button>"
 					+ "</form>");
 		}
+		buttonsDiv.append("</div>");
+		
 		return buttonsDiv.toString();
 	}
 	
@@ -170,11 +172,11 @@ public class LoginServlet extends HttpServlet {
 				+ "</head>\n"
 				+ "<body>\n"
 				+"<div class=\"header\">"
-				+ showAddButton(user) + "\n"
 				+ "<a href='index.jsp' class='btn' id='link'>Cerrar sesión</a>"
 				+"Florister�a Col�s"
-				+ "    <div class='user'>Hola "+ user.getFirstName() + "</div>\n" 
 				+ "    <div class='cart'><a href='cart.jsp' class='btn' id='link'> Carro </a> </div>\n" 
+				+ "    <div class='user'>Hola "+ user.getFirstName() + "</div>\n" 
+				+ showAddButton(user) + "\n"
 				+ "</div>\n"
 				+ "<div class=\"grid-container\">"
 				+ showFlowers(user, flowerList)

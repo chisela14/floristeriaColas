@@ -32,55 +32,54 @@ public class CartServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/** 
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//conseguir sesión del usuario
-		HttpSession se = request.getSession(); 
-		User userSession = (User) se.getAttribute("user");
-		
-		//comprobar sesión, si el usuario no es nulo recupero el item 
-		if(userSession != null){
-			//recupero los datos del formulario y el carrito
-			int flowerCode = Integer.parseInt(request.getParameter("flower"));
-			int quantity = Integer.parseInt(request.getParameter("quantity"));
-			Cart cart = (Cart) se.getAttribute("cart");
-			HashMap<Integer, Integer> items = cart.getItems();
-			
-			//compruebo que la cantidad no sea mayor al stock por si se enviaran los datos desde otro sitio
-			if(!checkStock(flowerCode, quantity)) {
-				response.sendRedirect("errorBackToList.jsp?msg='No hay tantos artículos disponibles'");
-			}
-			
-			//compruebo que el artículo no esté ya en el carrito
-			if (!items.containsKey(flowerCode)) {
-				items.put(flowerCode, quantity);
-			//si el carrito contiene el item sumo la cantidad
-			}else {
-				//consigo el stock
-				int stock=0;
-				try {
-					stock = FlowerControl.getFlower(flowerCode).getStock();
-				} catch (HibernateException | ControlException e) {
-					// problema con la base de datos || no se ha encontrado la flor
-				}
-				
-				//compruebo que la suma no sea mayor que el stock
-				if(items.get(flowerCode) + quantity > stock) {
-					response.sendRedirect("errorBackToList.jsp?msg='No hay tantos artículos disponibles'");
-				}else {
-					items.put(flowerCode, items.get(flowerCode) + quantity);
-				}
-			}
-
-		}else {
-			response.sendRedirect("error.jsp?msg='No te has autenticado o no estás autorizado'");
-		}
-		
-	}
 	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//conseguir sesión del usuario
+				HttpSession se = request.getSession(); 
+				User userSession = (User) se.getAttribute("user");
+				
+				//comprobar sesión, si el usuario no es nulo recupero el item 
+				if(userSession != null){
+					//recupero los datos del formulario y el carrito
+					int flowerCode = Integer.parseInt(request.getParameter("flower"));
+					int quantity = Integer.parseInt(request.getParameter("quantity"));
+					Cart cart = (Cart) se.getAttribute("cart");
+					HashMap<Integer, Integer> items = cart.getItems();
+					
+					//compruebo que la cantidad no sea mayor al stock por si se enviaran los datos desde otro sitio
+					if(!checkStock(flowerCode, quantity)) {
+						response.sendRedirect("errorBackToList.jsp?msg='No hay tantos artículos disponibles'");
+					}
+					
+					//compruebo que el artículo no esté ya en el carrito
+					if (!items.containsKey(flowerCode)) {
+						items.put(flowerCode, quantity);
+						response.sendRedirect("LoginServlet");
+					//si el carrito contiene el item sumo la cantidad
+					}else {
+						//consigo el stock
+						int stock=0;
+						try {
+							stock = FlowerControl.getFlower(flowerCode).getStock();
+						} catch (HibernateException | ControlException e) {
+							// problema con la base de datos || no se ha encontrado la flor
+						}
+						
+						//compruebo que la suma no sea mayor que el stock
+						if(items.get(flowerCode) + quantity > stock) {
+							response.sendRedirect("errorBackToList.jsp?msg='No hay tantos artículos disponibles'");
+						}else {
+							items.put(flowerCode, items.get(flowerCode) + quantity);
+							response.sendRedirect("LoginServlet");
+						}
+					}
+
+				}else {
+					response.sendRedirect("error.jsp?msg='No te has autenticado o no estás autorizado'");
+				}
+	}
+
 	/**
 	 * Método que comprueba que una cantidad no es mayor que el stock
 	 * @param flowerCode código de un artículo flower

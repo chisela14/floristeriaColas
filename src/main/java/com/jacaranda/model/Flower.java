@@ -101,7 +101,7 @@ public class Flower {
 
 	@Override
 	public String toString() {
-		return code + "<br>" + name + "<br>Descripción: " + description + "<br>Color: " + color.getCode() + "<br>Precio: " + price + " €";
+		return code + "<br>" + name + "         " + color.getCode() + "<br>Descripción: " + description + "<br>" + price + " €";
 	}
 
 	

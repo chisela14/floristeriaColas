@@ -10,7 +10,7 @@
     <div>
         <h1>Error</h1>
         <h2><%= request.getParameter("msg") %></h2>
-        <a href="flowerList.jsp">Volver al catálogo</a>
+        <a href="LoginServlet">Volver al catálogo</a>
     </div>
 </body>
 </html>
