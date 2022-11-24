@@ -30,11 +30,12 @@
 			//TO DO comprobar que por parámetro no se pase más cantidad que el stock
 		}%>
 		
-		<div class="header">
-			<a href='index.jsp' class='btn' id='link'>Cerrar sesión</a>
-			Floristería Colás
+		<section class="header"><!--flex container-->
+			<div class="logout"><a href='index.jsp' class='btn' id='link'>Cerrar sesión</a></div>
+			<div class="title">Floristería Colás</div>
 			<div class='user'>Hola <%=userSession.getFirstName() %> </div> 
-		</div>
+		</section>
+
 		<div class="grid-container">
 			Mi carrito
 			<% float total = 0;

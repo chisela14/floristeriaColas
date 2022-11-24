@@ -140,20 +140,20 @@ public class LoginServlet extends HttpServlet {
 	private String showAddButton(User user) {
 		String result = "";
 		if(user.isAdmin()) {
-			result = "<div class='addButton'><a href='addFlower.jsp' class='btn' id='link'> Añadir artículo </a></div>"; 
+			result = "<div class='addButton'><a href='addFlower.jsp' class='btn' id='link'> <img src=\"media/add.svg\" width='10px' height='10px'> </a></div>"; 
 		}
 		return result;
 	}
 	private String showItemButtons(User user, Flower flower) {
 		StringBuilder buttonsDiv = new StringBuilder("<div class='buttons'>");
 		if(user.isAdmin()) {
-			buttonsDiv.append("<a href='updateFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> <img src=\"media/update.svg\"></a>"
-					+ "<a href='deleteFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> Borrar </a>");
+			buttonsDiv.append("<a href='updateFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> <img src=\"media/update.svg\" width='10px' height='10px'></a>"
+					+ "<a href='deleteFlower.jsp?flower=" + flower.getCode() +"' class='btn' id='link'> <img src=\"media/delete.svg\" width='10px' height='10px'> </a>");
 		}
 		if(flower.getStock()>0) {
 			buttonsDiv.append("<form action='CartServlet' method='post'>"
 					+ "<input type='number' name='quantity' min='1' max='" + flower.getStock() + "' size='4'>"
-					+ "<button name='flower' value='" + flower.getCode() + "'>Carro</button>"
+					+ "<button name='flower' value='" + flower.getCode() + "'><img src=\"media/cart.svg\" width='10px' height='10px'></button>"
 					+ "</form>");
 		}
 		buttonsDiv.append("</div>");
@@ -171,13 +171,15 @@ public class LoginServlet extends HttpServlet {
 				+ "    <link rel='stylesheet' type='text/css' href='css/flowerList.css'>\n"
 				+ "</head>\n"
 				+ "<body>\n"
-				+"<div class=\"header\">"
-				+ "<a href='index.jsp' class='btn' id='link'>Cerrar sesión</a>"
-				+"Florister�a Col�s"
-				+ "    <div class='cart'><a href='cart.jsp' class='btn' id='link'> Carro </a> </div>\n" 
-				+ "    <div class='user'>Hola "+ user.getFirstName() + "</div>\n" 
-				+ showAddButton(user) + "\n"
+				+ "<section class=\"header\">"
+				+ "<div class=\"logout\"><a href='index.jsp' class='btn' id='link'><img src=\"media/log-out.png\" width='10px' height='10px'></a></div>"
+				+ "<div class='title'>Floristería Colás</div>"
+				+ "<div class='user'>"
+				+  showAddButton(user)
+				+ "    Hola "+ user.getFirstName() + "\n" 
+				+ "    <a href='cart.jsp' class='btn' id='link'> <img src=\"media/cart.svg\" width='10px' height='10px'></a>\n" 
 				+ "</div>\n"
+				+ "</section>\n"
 				+ "<div class=\"grid-container\">"
 				+ showFlowers(user, flowerList)
 				+ "</div>\n"

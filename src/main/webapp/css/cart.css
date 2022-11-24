@@ -12,16 +12,27 @@ body {
 }
 
 .header{
-    margin-bottom: 1rem;
+    display: flex;
     max-width: 100%;
     height: 2rem;
     background-color: green;
-    font-size: 2rem;
     padding: 1rem;
+    flex-flow: row;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 1rem;
 }
 
+.logout{
+    flex-basis: 10%;
+}
+.title{
+    flex-basis: 80%;
+    font-size: 2rem;
+}
 .user{
-	float:right;
+	flex-basis: 10%;
+    font-size: 0.5rem;
 }
 
 .grid-container{
@@ -65,8 +76,8 @@ body {
 }
 
 .btn{
-    background: 0 0 rgb(121, 0, 94);
-    border:1px solid rgb(102, 0, 85);
+    background: 0 0 rgb(165, 112, 185);
+    border:1px solid rgb(110, 40, 107);
     border-radius:3px;
     color: white;
     font-size:1rem;
