@@ -49,5 +49,21 @@ public class FlowerControl {
 		ArrayList<Flower> flowers = (ArrayList<Flower>) session.createQuery("SELECT f FROM com.jacaranda.model.Flower f where color='" + colorCode + "'", Flower.class).getResultList();
 		return flowers;
 	}
+	
+	public static boolean deleteFlower(Flower f) throws HibernateException, ControlException{
+		boolean result = false;
+		Session session = ConnectionDDBB.getSession();
+		try {
+			session.getTransaction().begin();
+			session.delete(f);
+			session.getTransaction().commit();
+			result = true;
+		}catch (Exception e) {
+			session.getTransaction().rollback();
+			throw new ControlException("No se ha encontrado el artículo en la base de datos");
+		}
+		return result;
+		
+	}
 
 }

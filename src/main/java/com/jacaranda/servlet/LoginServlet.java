@@ -173,6 +173,7 @@ public class LoginServlet extends HttpServlet {
 				+ "<body>\n"
 				+ "<section class=\"header\">"
 				+ "<div class=\"logout\"><a href='index.jsp' class='btn' id='link'><img src=\"media/log-out.png\" width='10px' height='10px'></a></div>"
+				+ "<div class='history'><a href='history.jsp' class='btn' id='link'>Mis pedidos</a></div>"
 				+ "<div class='title'>Floristería Colás</div>"
 				+ "<div class='user'>"
 				+  showAddButton(user)

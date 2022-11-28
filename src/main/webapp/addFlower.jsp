@@ -29,7 +29,8 @@
 			Flower newFlower = new Flower(name, description, price, color);
 			try{
 				FlowerControl.addFlower(newFlower);%>
-				<jsp:forward page="LoginServlet"></jsp:forward>
+				Artículo añadido
+				<a href="LoginServlet" class="btn" id="link">Volver al catálogo</a>
 			<%}catch(Exception e){
 						String message = e.getMessage();%>
 			<jsp:forward page="errorBackToList.jsp"><jsp:param

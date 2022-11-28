@@ -123,8 +123,8 @@ public class Purchase {
 
 	@Override
 	public String toString() {
-		return "Purchase [username=" + user + ", flower=" + flower + ", date=" + date + ", quantity=" + quantity
-				+ ", price=" + price + "]";
+		return "Artículo: " + flower + "<br> Fecha: " + date + "<br> Cantidad: " + quantity
+				+ "precio: " + price;
 	}
 	
 
