@@ -46,8 +46,8 @@
 					<div class="image">
 					</div>
 					<div class="info">
-					<%= f.getName() %>
-					<%= f.getPrice() %>
+					Item: <%= f.getName() %>
+					Precio: <%= f.getPrice() %>€
 					</div>
 					<div class="buttons">
 						<form method="post" action="cart.jsp">
@@ -60,7 +60,7 @@
 			<div class="cart-buttons">
 				<a href="LoginServlet">Volver al catálogo</a>
 				<form method="post" action="PurchaseServlet">
-				Total: <%= total %>€
+				<p>Total: <%= total %>€</p>
 				<button>Comprar</button>
 				</form>
 			</div>

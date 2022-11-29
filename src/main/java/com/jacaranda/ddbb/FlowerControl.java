@@ -65,5 +65,43 @@ public class FlowerControl {
 		return result;
 		
 	}
+	
+	public static boolean updateFlower(Integer code, String name, String description, Float price, String color) throws HibernateException, ControlException{
+		boolean result = false;
+		Session session = ConnectionDDBB.getSession();
+		//consigo el artículo a actualizar
+		Flower f = FlowerControl.getFlower(code);
+		
+		try {
+			//si los valores no son los mismos los cambio en el objeto
+			if(!f.getName().equals(name)) {
+				f.setName(name);
+				result = true;
+			}
+			if(!f.getDescription().equals(description)) {
+				f.setDescription(description);
+				result = true;
+			}
+			if(f.getPrice() != price) {
+				f.setPrice(price);
+				result = true;
+			}
+			if(!f.getColor().getCode().equals(color)) {
+				f.setColor(ColorControl.getColor(color));
+				result = true;
+			}
+			
+			//actualizo la flor en la base de datos
+			session.getTransaction().begin();
+			session.update(f);
+			session.getTransaction().commit();
+			result = true;
+		}catch (Exception e) {
+			session.getTransaction().rollback();
+			throw new ControlException("No se ha podido actualizar el artículo en la base de datos");
+		}
+		return result;
+		
+	}
 
 }

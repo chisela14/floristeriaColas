@@ -54,6 +54,10 @@
 						<p>Datos del artículo</p>
 					</div>
 					<div class="form-group">
+						<label class="form-label" for="code">Código</label> 
+						<input type="text" class="form-input" name="code" value="<%= flower.getCode() %>" readonly>
+					</div>
+					<div class="form-group">
 						<label class="form-label" for="name">Nombre</label> 
 						<input type="text" class="form-input" value="<%= flower.getName() %>" name="name" readonly>
 					</div>
