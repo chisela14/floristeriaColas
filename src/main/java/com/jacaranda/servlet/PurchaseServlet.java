@@ -79,7 +79,7 @@ public class PurchaseServlet extends HttpServlet {
 						notAdded.add(p.getFlower().getCode());
 					}
 				}
-				if(notAdded != null) {
+				if(notAdded.size() != 0) {
 					ServletContext context = this.getServletContext();
 					RequestDispatcher dispatcher = context.getRequestDispatcher("/errorBackToList.jsp?msg='Los elementos " + notAdded.toString() + " no han podido añadirse'");
 					dispatcher.forward(request, response);
