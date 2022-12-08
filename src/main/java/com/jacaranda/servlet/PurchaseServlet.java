@@ -2,9 +2,12 @@ package com.jacaranda.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,9 +60,12 @@ public class PurchaseServlet extends HttpServlet {
 			HashMap<Integer, Integer> items = cart.getItems();
 			//el boton de comprar no envía parámetros
 			if(params.size() == 0) {
+				//lista para guardar los elementos no añadidos
+				ArrayList<Integer> notAdded = new ArrayList<>();
 				//recorro todos los items para crear un objeto de purchase con cada uno
 				for(Integer code: items.keySet()) {
 					Flower f = null;
+					
 					try {
 						f = FlowerControl.getFlower(code);
 					} catch (HibernateException | ControlException e) {
@@ -69,9 +75,14 @@ public class PurchaseServlet extends HttpServlet {
 					Purchase p = new Purchase(userSession, f, date, items.get(code), f.getPrice());
 					try {
 						PurchaseControl.addPurchase(p);
-					} catch (ControlException e) {
-						response.sendRedirect("errorBackToList.jsp?msg='" + e.getMessage() + "'");
+					} catch (ControlException e) { 
+						notAdded.add(p.getFlower().getCode());
 					}
+				}
+				if(notAdded != null) {
+					ServletContext context = this.getServletContext();
+					RequestDispatcher dispatcher = context.getRequestDispatcher("/errorBackToList.jsp?msg='Los elementos " + notAdded.toString() + " no han podido añadirse'");
+					dispatcher.forward(request, response);
 				}
 				//vaciar carrito
 				Cart newCart = new Cart();

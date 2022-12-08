@@ -37,8 +37,6 @@ public class Purchase {
 //	@ManyToOne
 //	@MapsId("flowerId")
 	private Flower flower;
-	private int quantity;
-	private float price;
 	@Id
 //	@ManyToOne
 //	@JoinColumn(
@@ -49,7 +47,8 @@ public class Purchase {
 //	@MapsId("dateId")
 	@Column(name="date")
 	private LocalDate date;
-	
+	private int quantity;
+	private float price;
 
 	public Purchase() {
 		
@@ -124,7 +123,7 @@ public class Purchase {
 	@Override
 	public String toString() {
 		return "Artículo: " + flower + "<br> Fecha: " + date + "<br> Cantidad: " + quantity
-				+ "precio: " + price;
+				+ "<br>Precio: " + price;
 	}
 	
 

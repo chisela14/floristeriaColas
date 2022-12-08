@@ -18,8 +18,6 @@ public class PurchaseControl {
 			session.save(p);
 			session.getTransaction().commit();
 			result = true;
-		}catch(HibernateException h) {//no se ha podido conectar a la base de datos
-				
 		}catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new ControlException("Se ha realizado la misma compra en el mismo día, no se puede registrar");
